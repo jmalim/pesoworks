@@ -79,10 +79,11 @@
                     <td>
                     
 
-                    <input type="hidden"  value="<?= $row['jobpostingID']; ?>" name="jobpostingID"/>
-                    <!-- <?php echo $row['jobpostingID']; ?> -->
+
                     <input type="button" value="VIEW" class="buttonedit" name="edit"
-                        onclick="window.location.href='<?php echo base_url() ?>send_data_controller/view_job'" />
+                        onclick="window.location.href='<?php echo base_url() ?>send_data_controller/view_job/<?= $row['jobID'];?>'" />
+<!--                      
+                        <a href="<?php echo base_url();?>send_data_controller/view_job/<?= $row['jobpostingID'];?>">VIEW</a> -->
 
 
                     </td>

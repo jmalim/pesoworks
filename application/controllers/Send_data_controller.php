@@ -55,53 +55,40 @@ class Send_data_controller extends CI_Controller
 
       //call saverecords method of Hello_Model and pass variables as parameter
       $this->Senddata_model->post_job($jobtitle, $jobdetails, $establishment_id, $jobtype, $rate, $location, $dateposted, $post_status);
-      echo "Records Saved Successfully";
+      redirect(base_url('pages/view_jobposting'));
+      echo "<div style='alert'> SUCCESS </div> ";
     }
   }
 
-  public function view_job()
+  public function view_job($jobidnum)
   {
-    $id = $this->input->post('jobpostingID');
-  
+    $id = $jobidnum;
     
-
-    
-    //load registration view form
-    $data['jobpost'] = $this->Fetchdata_model->fetchdata_viewjobpost($id);
+    // load registration view form
+    $test =  $this->Fetchdata_model->fetchdata_viewjobpost($id);
+    $data['jobpost'] = (object) $test;
           $this->load->view('templates/headerDB');
           $this->load->view("pages/updatejob", $data);
           $this->load->view('templates/footerDB');
 
+    // var_dump($data['jobpost']);
+
+    if ($this->input->post('update')) {
+      //get form's data and store in local varable
+
+      $jobtitle = $this->input->post('jobtitle');
+      $jobdetails = $this->input->post('jobdetails');
+      $jobtype = $this->input->post('jobtype');
+      $rate = $this->input->post('rate');
+      $post_status = $this->input->post('jobstatus');
+
+      //call saverecords method of Hello_Model and pass variables as parameter
+      $this->Updatedata_model->updatejob($id,$jobtitle, $jobdetails, $jobtype, $rate, $post_status);
+      redirect(base_url('pages/view_jobposting'));
+      echo "<div style='alert'> SUCCESS </div> ";
+    }
+
   }
-
-  // public function dispdata()
-	// {
-	// $result['data']=$this->Hello_Model->displayrecords();
-	// $this->load->view('display_records',$result);
-	// }
-	
-	// public function deletedata()
-	// {
-	// $id=$this->input->get('id');
-	// $this->Hello_Model->deleterecords($id);
-	// redirect("Hello/dispdata");
-	// }
-
-  // public function updatedata()
-	// {
-	// $id=$this->input->get('jobpostingID');
-	// $result['data']=$this->Hello_Model->displayrecordsById($id);
-	// $this->load->view('update_records',$result);	
-	
-	// 	if($this->input->post('update'))
-	// 	{
-	// 	$n=$this->input->post('name');
-	// 	$e=$this->input->post('email');
-	// 	$m=$this->input->post('mobile');
-	// 	$this->Hello_Model->updaterecords($n,$e,$m,$id);
-	// 	redirect("Hello/dispdata");
-	// 	}
-  // }
   
   public function updatedata()
 	{

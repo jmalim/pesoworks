@@ -2,26 +2,21 @@
 
 
 class Updatedata_model extends CI_Model {
+    public function __construct()
+    {
+        $this->load->database();
+        $this->load->helper('url');
+    }
 
     // Update record by id
-    function updatejob($postData,$id){
-
-            $jobstatus = $postData['jobstatus']; 
-            $companyname = $postData['companyname'];
-            $location = $postData['location'];
-            // $jobtitle = $postData['jobtitle'];
-            // $jobdetails = $postData['jobdetails'];
-            $jobtype = $postData['jobtype']; 
-            $rate = $postData['rate'];
-            $date = $postData['date'];            
-            // Update
-            $value=array('establishment_id'=>$companyname,'jobtype'=>$jobtype,
-            'rate'=>$rate,'job_location'=>$location,'postingdate'=>$date,
-            'posting_status'=>$jobstatus);
-            $this->db->where('`jobpostingID',$id);
-            $this->db->update('tbl_postingdetails',$value);
+    function updatejob($id, $jobtitle,$jobdetails,
+    $jobtype,$rate,$post_status)
+    {
+        $query="call update_tbl_job('$id','$jobtitle',
+        '$jobdetails','$post_status','$jobtype',
+        '$rate')";
+        $this->db->query($query);
         
     }
-	
 
 }

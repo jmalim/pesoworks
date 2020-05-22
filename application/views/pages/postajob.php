@@ -1,7 +1,7 @@
 <style>
   body {
     font-family: "Lato", sans-serif;
-    padding: 0px 100px;
+    padding: 0px 20px 0px 200px;
 
   }
 
@@ -17,10 +17,10 @@
   }
 
   input[type="submit"] {
-    width: 120%;
+    width: 100%;
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
+    padding: 14px 10px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
@@ -32,10 +32,10 @@
   }
 
   input[type="reset"] {
-    width: 120%;
+    width: 100%;
     background-color: red;
     color: white;
-    padding: 14px 20px;
+    padding: 14px 10px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
@@ -93,7 +93,7 @@
     </select>
     <input type="text" id="rate" name="rate" placeholder="Rate">
 
-    <div class="btn btn-group"><input type="submit" name="post" value="POST"> &nbsp;
+    <div class="btn btn-group"><input type="submit" name="post" value="POST">
     <input type="reset" name="reset" value="CANCEL" onclick="success()"></div>
     
     

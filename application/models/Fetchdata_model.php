@@ -38,6 +38,7 @@ ON tbl_empstatus_detail.empID = js_emp_details.empID");
         //$query = $this->db->get('js_emp_details');
         $query = $this->db->query("SELECT tbl_postingdetails.jobpostingID as jobpostingID,
         tbl_job.jobtitle as jobtitle, tbl_job.jobdetails as jobdetails,
+        tbl_job.jobID as jobID,
         tbl_establishment_details.establishment_name as establishment,
         tbl_postingdetails.jobtype as jobtype,
         tbl_postingdetails.rate as rate,
@@ -53,28 +54,7 @@ ON tbl_empstatus_detail.empID = js_emp_details.empID");
 
 
     public function fetchdata_viewjobpost($id)
-    {
-        // $result=$this->db->select('tbl_postingdetails.jobpostingID as jobpostingID,
-        // tbl_job.jobtitle as jobtitle, tbl_job.jobdetails as jobdetails,
-        // tbl_establishment_details.establishment_name as establishment,
-        // tbl_postingdetails.jobtype as jobtype,
-        // tbl_postingdetails.rate as rate,
-        // tbl_postingdetails.job_location as joblocation,
-        // tbl_postingdetails.postingdate as postingdate,
-        // tbl_postingdetails.posting_status as postingstatus');
-        // $this->db->from('tbl_job');
-        // $this->db->join('tbl_postingdetails','tbl_job.jobID = tbl_postingdetails.jobID');
-        // $this->db->join('tbl_establishment_details','tbl_postingdetails.jobpostingID' = $id );
-        // $this->db->where('jobpostingID', $id);
-        // // $result = $this->db->get('tbl_postingdetails');
-
-        // return $result->row_array();
-
-        // $this->db->where('jobpostingID', $id);
-        // $result = $this->db->get('tbl_postingdetails');
-        // return $result->row_array();
-        // $query = $this->db->get('js_emp_details');
-        $query = $this->db->query("SELECT tbl_postingdetails.jobpostingID as jobpostingID,
+    {   $query = $this->db->query("SELECT tbl_postingdetails.jobpostingID as jobpostingID,tbl_job.jobID as jobID,
         tbl_job.jobtitle as jobtitle, tbl_job.jobdetails as jobdetails,
         tbl_establishment_details.establishment_name as establishment,
         tbl_postingdetails.jobtype as jobtype,
@@ -82,11 +62,12 @@ ON tbl_empstatus_detail.empID = js_emp_details.empID");
         tbl_postingdetails.job_location as joblocation,
         tbl_postingdetails.postingdate as postingdate,
         tbl_postingdetails.posting_status as postingstatus
-        FROM tbl_job JOIN tbl_postingdetails
-        ON tbl_job.jobID = tbl_postingdetails.jobID
-        JOIN tbl_establishment_details WHERE
-        tbl_postingdetails.jobpostingID = '$id'");
-        return $query->result_array();
+        FROM tbl_postingdetails JOIN tbl_establishment_details
+        ON tbl_postingdetails.establishment_id = tbl_establishment_details.establishment_id
+        JOIN tbl_job ON
+        tbl_job.jobID = tbl_postingdetails.jobID
+        WHERE tbl_job.jobID = '$id'");
+    return $query->result_array();
     }
 
 
