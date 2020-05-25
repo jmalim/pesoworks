@@ -60,6 +60,61 @@ class Send_data_controller extends CI_Controller
     }
   }
 
+  public function addjobseeker()
+  {
+    //load registration view form
+    $data['establishment'] = $this->Fetchdata_model->fetchdata_employers();
+    $data['address'] = $this->Fetchdata_model->fetchdata_address();
+    $data['skill_id'] = $this->Fetchdata_model->fetchdata_skill();
+
+
+    // var_dump($data['establishment']);
+    $this->load->view('templates/headerDB');
+    $this->load->view("pages/addjobseeker", $data);
+    $this->load->view('templates/footerDB');
+
+    // var_dump($data['skill_id']);
+
+    //Check submit button 
+    if ($this->input->post('post')) {
+      //get form's data and store in local varable
+      $dateposted = $this->input->post('date');
+      $fname = $this->input->post('fname');
+      $lname = $this->input->post('lname');
+      $mname = $this->input->post('mname');
+      $location = $this->input->post('location');
+      $suffix = $this->input->post('suffix');
+      $gender = $this->input->post('gender');
+      $civilstatus = $this->input->post('civilstatus');
+      $tin = $this->input->post('tin');
+      $gsis = $this->input->post('gsis');
+      $pagibig = $this->input->post('pagibig');
+      $phno = $this->input->post('phno');
+      $height = $this->input->post('height');
+      $landline = $this->input->post('landline');
+      $cellphone = $this->input->post('cellphone');
+      $disability = $this->input->post('disability');
+      $bdate = $this->input->post('bdate');
+      $bplace = $this->input->post('bplace');
+      $religion = $this->input->post('religion');
+      $empstatus = $this->input->post('empstatus');
+      $companyname = $this->input->post('companyname');
+      $rate = $this->input->post('rate');
+      $empdate = $this->input->post('empdate');
+
+      
+
+
+      //call saverecords method of Hello_Model and pass variables as parameter
+      $this->Senddata_model->post_employee($fname,$lname,$mname,$suffix,$gender,$location,
+      $civilstatus,$tin,$gsis,$pagibig,$phno,$height,$landline,$cellphone,
+      $disability,$bdate,$bplace,$religion,$dateposted,$empstatus,$companyname,$rate,$empdate);
+      redirect(base_url('pages/admindashboard'));
+      echo "<div style='alert'> SUCCESS </div> ";
+    }
+  }
+
+
   public function view_job($jobidnum)
   {
     $id = $jobidnum;
@@ -88,25 +143,38 @@ class Send_data_controller extends CI_Controller
       echo "<div style='alert'> SUCCESS </div> ";
     }
 
-  }
-  
-  public function updatedata()
-	{
-	$id=$this->input->get('jobpostingID');
-	$result['data']=$this->Fetchdata_Model->displayrecordsById($id);
-  $this->load->view('templates/headerDB');
-    $this->load->view("pages/updatejob", $result);
-      $this->load->view('templates/footerDB');	
-	
-		// if($this->input->post('update'))
-		// {
-		// $n=$this->input->post('name');
-		// $e=$this->input->post('email');
-		// $m=$this->input->post('mobile');
-		// $this->Hello_Model->updaterecords($n,$e,$m,$id);
-		// redirect("Hello/dispdata");
-		// }
-	}
+    
 
+  }
+  public function view_jobseeker($empid)
+  {
+    $id = $empid;
+    
+    // load registration view form
+    $test =  $this->Fetchdata_model->fetchdata_viewjobseeker($id);
+    $data['jobseeker'] = (object) $test;
+          $this->load->view('templates/headerDB');
+          $this->load->view("pages/update_jobseeker", $data);
+          $this->load->view('templates/footerDB');
+
+    var_dump($data['jobseeker']);
+
+    if ($this->input->post('update')) {
+      //get form's data and store in local varable
+
+      $jobtitle = $this->input->post('jobtitle');
+      $jobdetails = $this->input->post('jobdetails');
+      $jobtype = $this->input->post('jobtype');
+      $rate = $this->input->post('rate');
+      $post_status = $this->input->post('jobstatus');
+
+      //call saverecords method of Hello_Model and pass variables as parameter
+      //$this->Updatedata_model->updatejob($id,$jobtitle, $jobdetails, $jobtype, $rate, $post_status);
+      redirect(base_url('pages/view_jobposting'));
+      echo "<div style='alert'> SUCCESS </div> ";
+    }
+  }
+
+  
 
 }

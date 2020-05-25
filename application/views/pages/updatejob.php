@@ -58,7 +58,7 @@
   <h3>UPDATE JOB</h3>
 </div>
 <form method="post">
-  <?php foreach ($jobpost as $key) { ?>
+  <?php foreach ($jobseeker as $key) { ?>
     <label> Posting Date </label>
     <input type="text" id="date" name="date" value="<?php echo $key['postingdate'] ?>" disabled readonly>
     

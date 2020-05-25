@@ -1,6 +1,10 @@
 
     <div style="text-align:center"><h2>LIST OF REGISTERED JOBSEEKERS</h2></div>
- 
+    <div><span style="display:flex; justify-content:flex-end; width:100%; padding: 0px;">
+            <input type="button" value="ADD JOBSEEKER" class="button"
+            onclick="window.location.href='<?php echo base_url() ?>send_data_controller/addjobseeker'" />
+        </span></div>
+    <br>
 
     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -28,8 +32,8 @@
                         </td>
 
                         <td align="center">
-                        <input type="button" value="View" class="buttonedit"
-                        onclick="window.location.href='<?php echo base_url() ?>pages/admindashboard'" />
+                        <input type="button" value="VIEW" class="buttonedit" name="edit"
+    onclick="window.location.href='<?php echo base_url() ?>send_data_controller/view_jobseeker/<?= $row['empID'];?>'" />
                         </td>
                         <?php
 

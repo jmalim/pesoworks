@@ -13,18 +13,28 @@ class Fetchdata_model extends CI_Model
     {
         //$query = $this->db->get('js_emp_details');
         $query = $this->db->query("
-        SELECT CONCAT(js_emp_details.lname,',',' ',js_emp_details.fname,' ',js_emp_details.mname) as name,
-        CONCAT(tbl_address.barangay,',',' ',tbl_address.city_mun) as address, tbl_empstatus_detail.emp_status_type_name
+        SELECT js_emp_details.empID as empID, CONCAT(js_emp_details.lname,',',' ',js_emp_details.fname,' ',js_emp_details.mname) as name,
+        CONCAT(tbl_address.barangay,',',' ',tbl_address.city_mun) as address,
+        tbl_empstatus_detail.emp_status_type_name
         as emp_status
-FROM js_emp_details
-JOIN tbl_address
-ON js_emp_details.addressID = tbl_address.addressID
-JOIN tbl_empstatus_detail
-ON tbl_empstatus_detail.empID = js_emp_details.empID");
+        FROM js_emp_details
+        JOIN tbl_address
+        ON js_emp_details.addressID = tbl_address.addressID
+        JOIN tbl_empstatus_detail
+        ON tbl_empstatus_detail.empID = js_emp_details.empID");
         return $query->result_array();
     }
 
     public function fetchdata_employers()
+    {
+        //$query = $this->db->get('js_emp_details');
+        $query = $this->db->query("SELECT establishment_id as establishment_id, establishment_name as ename,
+        establishment_tin as tin, establishment_type as type, workforce
+        FROM tbl_establishment_details");
+        return $query->result_array();
+    }
+
+    public function fetchdata_employee()
     {
         //$query = $this->db->get('js_emp_details');
         $query = $this->db->query("SELECT establishment_id, establishment_name as ename,
@@ -70,6 +80,28 @@ ON tbl_empstatus_detail.empID = js_emp_details.empID");
     return $query->result_array();
     }
 
+    public function fetchdata_viewjobseeker($id)
+    {   $query = $this->db->query("SELECT js_emp_details.empID as empID,
+        js_emp_details.fname as fname, js_emp_details.lname as lname,
+        js_emp_details.mname as mname, js_emp_details.suffix as suffix,
+        js_emp_details.gender as gender, js_emp_details.addressID as location,
+        js_emp_details.civilstatus as civilstatus, js_emp_details.tin as tin,
+        js_emp_details.gsis as gsis, js_emp_details.pagibig as pagibig,
+        js_emp_details.phno as philhealth, js_emp_details.height as height,
+        js_emp_details.landline as landline, js_emp_details.cellphone as cellphone,
+        js_emp_details.disability as disability, js_emp_details.bdate as bdate,
+        js_emp_details.placeofbirth as placeofbirth, js_emp_details.religion as religion,
+        js_emp_details.regdate as dateposted,
+        tbl_empstatus_detail.emp_status_type_name as emp_status,
+        tbl_empstatus_detail.establishment_id as establishment_id,
+        tbl_empstatus_detail.wage_employment as wage,
+        tbl_empstatus_detail.date_employed as date_emp
+        FROM js_emp_details JOIN tbl_empstatus_detail
+        ON tbl_empstatus_detail.empID = js_emp_details.empID
+        WHERE tbl_empstatus_detail.empID = '$id'");
+    return $query->result_array();
+    }
+
 
     public function fetch_report_employed()
     {
@@ -96,11 +128,21 @@ ON tbl_empstatus_detail.empID = js_emp_details.empID");
     public function fetchdata_address()
     {
         //$query = $this->db->get('js_emp_details');
-        $query = $this->db->query("SELECT CONCAT(tbl_address.barangay,',',' ',
-               tbl_address.city_mun,' ',tbl_address.province) as my_address
-               FROM tbl_address");
+        $query = $this->db->query("SELECT tbl_address.addressID as addID, CONCAT(tbl_address.barangay,',',' ',
+        tbl_address.city_mun,' ',tbl_address.province) as my_address
+        FROM tbl_address");
         return $query->result_array();
     }
+
+    public function fetchdata_skill()
+    {
+        //$query = $this->db->get('js_emp_details');
+        $query = $this->db->query("SELECT skill_id as skill_id,
+        skill_name as skill_name
+        FROM tbl_skills");
+        return $query->result_array();
+    }
+
 
 
     function displayrecordsById($id)
