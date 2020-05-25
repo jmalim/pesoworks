@@ -121,18 +121,4 @@ class Fetchdata_model extends CI_Model
         FROM tbl_skills");
         return $query->result_array();
     }
-
-
-
-    function displayrecordsById($id)
-	{
-
-	$query=$this->db->query("as postingdate,
-        tbl_postingdetails.posting_status as postingstatus
-        FROM tbl_job JOIN tbl_postingdetails
-        ON tbl_job.jobID = tbl_postingdetails.jobID
-        JOIN tbl_establishment_details WHERE
-        tbl_postingdetails.jobpostingID ='".$id."'");
-	return $query->result();
-	}
 }

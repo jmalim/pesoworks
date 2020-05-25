@@ -55,7 +55,7 @@
   }
 </style>
 <div style="text-align:center">
-  <h3>EMPLOYMENT INFORMATION</h3>
+  <h3>JOBSEEKER'S INFORMATION</h3>
 </div>
 
 
@@ -69,14 +69,14 @@
     <label> Employment Status </label>
     <input type="text" id="empstatus" name="empstatus" value="<?php echo $key['emp_status'] ?>">
     <label> Company Name </label>
-    <input type="text" id="cname" name="companyname" value="<?= $key['ename'] ; ?>">
+    <input type="text" id="cname" name="companyname" value="<?= $key['ename'] ; ?>"disabled readonly>
     <label> Employment Rate </label>
-    <input type="text" id="rate" name="rate" value="<?php echo $key['wage'] ?>">
+    <input type="text" id="rate" name="rate" value="<?php echo $key['wage'] ?>"disabled readonly>
 
             <?php }
   ?>
 
-    <div class="btn btn-group"><input type="submit" name="post" value="UPDATE">
+    <div class="btn btn-group"><input type="submit" name="update" value="UPDATE">
     <input type="reset" name="reset" value="CANCEL" onclick="success()"></div>
     
   </form>

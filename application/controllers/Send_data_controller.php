@@ -163,32 +163,12 @@ class Send_data_controller extends CI_Controller
     if ($this->input->post('update')) {
       //get form's data and store in local varable
 
-      $fname = $this->input->post('fname');
-      $lname = $this->input->post('lname');
-      $mname = $this->input->post('mname');
-      $location = $this->input->post('location');
-      $suffix = $this->input->post('suffix');
-      $gender = $this->input->post('gender');
-      $civilstatus = $this->input->post('civilstatus');
-      $tin = $this->input->post('tin');
-      $gsis = $this->input->post('gsis');
-      $pagibig = $this->input->post('pagibig');
-      $phno = $this->input->post('phno');
-      $height = $this->input->post('height');
-      $landline = $this->input->post('landline');
-      $cellphone = $this->input->post('cellphone');
-      $disability = $this->input->post('disability');
-      $bdate = $this->input->post('bdate');
-      $bplace = $this->input->post('bplace');
-      $religion = $this->input->post('religion');
       $empstatus = $this->input->post('empstatus');
-      $companyname = $this->input->post('companyname');
-      $rate = $this->input->post('rate');
-      $empdate = $this->input->post('empdate');
+
 
       //call saverecords method of Hello_Model and pass variables as parameter
-      //$this->Updatedata_model->updatejob($id,$jobtitle, $jobdetails, $jobtype, $rate, $post_status);
-      redirect(base_url('pages/view_jobposting'));
+      $this->Updatedata_model->update_empstatus($id,$empstatus);
+      redirect(base_url('pages/admindashboard'));
       echo "<div style='alert'> SUCCESS </div> ";
     }
   }

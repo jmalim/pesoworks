@@ -19,4 +19,11 @@ class Updatedata_model extends CI_Model {
         
     }
 
+    function update_empstatus($id, $empstatus)
+    {
+        $query="call update_empstatus('$id','$empstatus')";
+        $this->db->query($query);
+        
+    }
+
 }
