@@ -55,64 +55,28 @@
   }
 </style>
 <div style="text-align:center">
-  <h3>PERSONAL INFORMATION</h3>
+  <h3>EMPLOYMENT INFORMATION</h3>
 </div>
 
 
 <div class="a">
   <form method="post">
-    <label> First Name </label>
-    <input type="text" id="fname" name="fname" placeholder="First Name">
-        <label> Last Name </label>
-        <input type="text" id="lname" name="lname" placeholder="Last Name">
-        <label> Middle Name </label>
-        <input type="text" id="mname" name="mname" placeholder="Middle Name">
-        <label> Suffix </label>
-        <input type="text" id="suffix" name="suffix" placeholder="Suffix" value="N/A">
-        <label> Gender </label>
-        <input type="text" id="gender" name="gender" placeholder="Gender" value="N/A">
-        <label> Address </label>
-        <input type="text" id="loc" name="location" placeholder="Location" value="N/A">
-        <label> Civil Status </label>
-        <input type="text" id="civilstatus" name="civilstatus" placeholder="Civil Status" value="N/A">
-        <label> TIN </label>
-        <input type="text" id="tin" name="tin" placeholder="TIN No." value="N/A">
-        <label> GSIS </label>
-        <input type="text" id="gsis" name="gsis" placeholder="GSIS No." value="N/A">
-        <label> PAG-IBIG </label>
-        <input type="text" id="gsis" name="pagibig" placeholder="PAG-IBIG No." value="N/A">
-        <label> PHILHEALTH NO. </label>
-        <input type="text" id="phno" name="phno" placeholder="Philhealth No." value="N/A">
-        <label> Height </label>
-        <input type="text" id="height" name="height" placeholder="Height" value="N/A">
-        <label> Landline No. </label>
-        <input type="text" id="landline" name="landline" placeholder="Landline No." value="N/A">
-        <label> Cellphone No. </label>
-        <input type="text" id="cellphone" name="cellphone" placeholder="Cellphone No." value="N/A">
-        <label> Disability </label>
-        <input type="text" id="disability" name="disability" placeholder="Disability" value="N/A">
-        <label> Birth Date </label>
-        <input type="text" id="bdate" name="bdate" placeholder="yyyy-mm-dd">
-        <label> Birth Place </label>
-        <input type="text" id="bplace" name="bplace" placeholder="Birth Place">
-        <label> Religion </label>
-        <input type="text" id="religion" name="religion" placeholder="Religion">
-    <label> Employment Status </label>
-    <select id="empstatus" name="empstatus">
-    <option value="" disabled selected>Employment Status</option>
-      <option value="wage_employed">Wage-Employed</option>
-      <option value="self_employed">Self-Employed</option>
-      <option value="unemployed">Unemployed</option>
-    </select>
-    <label> Company Name </label>
-    <input type="text" id="cname" name="companyname" placeholder="Company Name">
-    <label> Employment Rate </label>
-    <input type="text" id="rate" name="rate" placeholder="Rate/day">
+  <?php foreach ($jobseeker as $key) { ?>
     <label> Date Employed </label>
-    <input type="text" id="date" name="empdate" value="<?php
-            echo date("Y-m-d"); ?>">
+    <input type="text" id="date" name="empdate" value="<?php echo $key['dateposted'] ?>" disabled readonly>
+    <label> Full Name </label>
+    <input type="text" id="fname" name="fname" value="<?php echo $key['fname'] ?>" disabled readonly>
+    <label> Employment Status </label>
+    <input type="text" id="empstatus" name="empstatus" value="<?php echo $key['emp_status'] ?>">
+    <label> Company Name </label>
+    <input type="text" id="cname" name="companyname" value="<?= $key['ename'] ; ?>">
+    <label> Employment Rate </label>
+    <input type="text" id="rate" name="rate" value="<?php echo $key['wage'] ?>">
 
-    <div class="btn btn-group"><input type="submit" name="post" value="VIEW">
+            <?php }
+  ?>
+
+    <div class="btn btn-group"><input type="submit" name="post" value="UPDATE">
     <input type="reset" name="reset" value="CANCEL" onclick="success()"></div>
     
   </form>

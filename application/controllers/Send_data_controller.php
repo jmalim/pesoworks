@@ -152,21 +152,39 @@ class Send_data_controller extends CI_Controller
     
     // load registration view form
     $test =  $this->Fetchdata_model->fetchdata_viewjobseeker($id);
+    $data['establishment'] = $this->Fetchdata_model->fetchdata_employers();
     $data['jobseeker'] = (object) $test;
           $this->load->view('templates/headerDB');
           $this->load->view("pages/update_jobseeker", $data);
           $this->load->view('templates/footerDB');
 
-    var_dump($data['jobseeker']);
+    //var_dump($data['jobseeker']);
 
     if ($this->input->post('update')) {
       //get form's data and store in local varable
 
-      $jobtitle = $this->input->post('jobtitle');
-      $jobdetails = $this->input->post('jobdetails');
-      $jobtype = $this->input->post('jobtype');
+      $fname = $this->input->post('fname');
+      $lname = $this->input->post('lname');
+      $mname = $this->input->post('mname');
+      $location = $this->input->post('location');
+      $suffix = $this->input->post('suffix');
+      $gender = $this->input->post('gender');
+      $civilstatus = $this->input->post('civilstatus');
+      $tin = $this->input->post('tin');
+      $gsis = $this->input->post('gsis');
+      $pagibig = $this->input->post('pagibig');
+      $phno = $this->input->post('phno');
+      $height = $this->input->post('height');
+      $landline = $this->input->post('landline');
+      $cellphone = $this->input->post('cellphone');
+      $disability = $this->input->post('disability');
+      $bdate = $this->input->post('bdate');
+      $bplace = $this->input->post('bplace');
+      $religion = $this->input->post('religion');
+      $empstatus = $this->input->post('empstatus');
+      $companyname = $this->input->post('companyname');
       $rate = $this->input->post('rate');
-      $post_status = $this->input->post('jobstatus');
+      $empdate = $this->input->post('empdate');
 
       //call saverecords method of Hello_Model and pass variables as parameter
       //$this->Updatedata_model->updatejob($id,$jobtitle, $jobdetails, $jobtype, $rate, $post_status);
