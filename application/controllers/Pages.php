@@ -16,6 +16,7 @@
       public function admindashboard()  
       {  
            $data['empdetails'] = $this->Fetchdata_model->fetchdata_jobseekers();
+           
             
            $this->load->view('templates/headerDB');
            $this->load->view("admin_page", $data);  
@@ -34,6 +35,7 @@
       public function view_employers(){
 
           $data['establishment'] = $this->Fetchdata_model->fetchdata_employers();
+          $data['address'] = $this->Fetchdata_model->fetchdata_address();
 
           // var_dump($data['establishment']);
           $this->load->view('templates/headerDB');

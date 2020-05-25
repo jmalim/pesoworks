@@ -85,6 +85,6 @@
 
 <script>
 function success() {
-  window.location.href='<?php echo base_url() ?>pages/view_jobposting';
+  window.location.href='<?php echo base_url() ?>pages/admindashboard';
 }
 </script>

@@ -93,7 +93,7 @@
     </select>
     <input type="text" id="rate" name="rate" placeholder="Rate">
 
-    <div class="btn btn-group"><input type="submit" name="post" value="POST">
+    <div class="btn btn-group"><input type="submit" name="post" value="ADD">
     <input type="reset" name="reset" value="CANCEL" onclick="success()"></div>
     
     

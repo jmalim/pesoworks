@@ -17,18 +17,6 @@ class Send_data_controller extends CI_Controller
     $this->load->model('Senddata_model');
   }
 
-
-  public function view_employers()
-  {
-
-    $data['establishment'] = $this->Fetchdata_model->fetchdata_employers();
-
-    // var_dump($data['establishment']);
-    $this->load->view('templates/headerDB');
-    $this->load->view("pages/employers", $data);
-    $this->load->view('templates/footerDB');
-  }
-
   public function savedata()
   {
     //load registration view form
@@ -172,6 +160,35 @@ class Send_data_controller extends CI_Controller
       echo "<div style='alert'> SUCCESS </div> ";
     }
   }
+
+  function add_employer(){
+    $data['address'] = $this->Fetchdata_model->fetchdata_address();
+    $this->load->view('templates/headerDB');
+    $this->load->view("pages/add_employer", $data);
+    $this->load->view('templates/footerDB');
+
+     //Check submit button 
+     if ($this->input->post('post')) {
+      //get form's data and store in local varable
+      $dateposted = $this->input->post('date');
+      $location = $this->input->post('location');
+      $companyname = $this->input->post('companyname');
+      $empabbr = $this->input->post('abbr');
+      $emptin = $this->input->post('tin');
+      $etype = $this->input->post('etype');
+      $workforce = $this->input->post('workforce');
+      $personincharge = $this->input->post('personincharge');
+      $position = $this->input->post('position');
+      $contact = $this->input->post('contact');
+
+       //call saverecords method of Hello_Model and pass variables as parameter
+       $this->Senddata_model->post_employer($companyname,$empabbr,
+       $emptin,$etype,$workforce,$personincharge,$position,$contact,$location,$dateposted);
+       redirect(base_url('pages/view_employers'));
+       echo "<div style='alert'> SUCCESS </div> ";
+
+  }
+}
 
   
 

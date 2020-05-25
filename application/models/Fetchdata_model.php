@@ -29,19 +29,14 @@ class Fetchdata_model extends CI_Model
     {
         //$query = $this->db->get('js_emp_details');
         $query = $this->db->query("SELECT establishment_id as establishment_id, establishment_name as ename,
+        CONCAT(tbl_address.barangay,',',' ',tbl_address.city_mun) as address,
+        person_in_charge as pic, contact as contact,
         establishment_tin as tin, establishment_type as type, workforce
-        FROM tbl_establishment_details");
+        FROM tbl_establishment_details
+        JOIN tbl_address ON tbl_establishment_details.addressID = tbl_address.addressID");
         return $query->result_array();
     }
 
-    public function fetchdata_employee()
-    {
-        //$query = $this->db->get('js_emp_details');
-        $query = $this->db->query("SELECT establishment_id, establishment_name as ename,
-        establishment_tin as tin, establishment_type as type, workforce
-        FROM tbl_establishment_details");
-        return $query->result_array();
-    }
 
     public function fetchdata_jobposting()
     {

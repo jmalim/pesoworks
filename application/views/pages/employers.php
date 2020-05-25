@@ -3,7 +3,8 @@
 </div>
 
 <div><span style="display:flex; justify-content:flex-end; width:100%; padding: 0px;">
-        <input type="button" value="ADD EMPLOYER" class="button" />
+        <input type="button" value="ADD EMPLOYER" class="button"
+        onclick="window.location.href='<?php echo base_url() ?>send_data_controller/add_employer'" />
     </span></div>
 <br>
 
@@ -38,20 +39,22 @@
                 <td><?= $row['ename']; ?>
                     <h5></h5>
                 </td>
-                <td><?= $row['tin']; ?>
+                <td><?= $row['pic']; ?>
                     <h5></h5>
                 </td>
-                <td><?= $row['type']; ?>
+                <td><?= $row['contact']; ?>
                     <h5></h5>
                 </td>
-                <td><?= $row['workforce']; ?>
+                <td>
+                    <?= $row['address']; ?>
                     <h5></h5>
                 </td>
                 <td align="center">
-                <input type="button" value="View" class="buttonedit"
-                        onclick="window.location.href='<?php echo base_url() ?>pages/view_employers'" />
+                <input type="button" value="VIEW" class="buttonedit" name="edit" />
+    <!-- onclick="window.location.href='<?php echo base_url() ?>send_data_controller/view_jobseeker/<?= $row['empID'];?>'" /> -->
                     
                 </td>
+                
 
             <?php
 
