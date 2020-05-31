@@ -37,6 +37,19 @@ class Fetchdata_model extends CI_Model
         return $query->result_array();
     }
 
+    public function fetchdata_employerbyId($id)
+    {
+        //$query = $this->db->get('js_emp_details');
+        $query = $this->db->query("SELECT establishment_id as establishment_id, establishment_name as ename,
+        CONCAT(tbl_address.barangay,',',' ',tbl_address.city_mun) as address,
+        person_in_charge as pic, contact as contact,
+        establishment_tin as tin, establishment_type as type, workforce
+        FROM tbl_establishment_details
+        JOIN tbl_address ON tbl_establishment_details.addressID = tbl_address.addressID
+        WHERE tbl_establishment_details.establishment_id = '$id'");
+        return $query->result_array();
+    }
+
 
     public function fetchdata_jobposting()
     {
@@ -114,6 +127,44 @@ class Fetchdata_model extends CI_Model
         $query = $this->db->query("SELECT skill_id as skill_id,
         skill_name as skill_name
         FROM tbl_skills");
+        return $query->result_array();
+    }
+
+    public function fetch_report_employed()
+    {
+        $inputdate=$_POST['from'];
+        $inputdate2=$_POST['to'];
+
+        // var_dump($inputdate);
+        // var_dump($inputdate2);
+        //$query = $this->db->get('js_emp_details');
+        $query = $this->db->query("SELECT js_emp_details.empID as empID,
+        CONCAT(js_emp_details.lname,',',' ',js_emp_details.fname,' ',js_emp_details.mname) as fname,
+        tbl_empstatus_detail.emp_status_type_name as emp_status, tbl_establishment_details.establishment_name as establishment,
+        tbl_empstatus_detail.wage_employment as wage, tbl_empstatus_detail.date_employed as date_employed
+        FROM js_emp_details JOIN tbl_empstatus_detail
+        ON js_emp_details.empID = tbl_empstatus_detail.empID
+        JOIN tbl_establishment_details ON tbl_empstatus_detail.establishment_id = tbl_establishment_details.establishment_id
+        WHERE tbl_empstatus_detail.emp_status_type_name = 'Employed (Referred)' AND tbl_empstatus_detail.date_employed BETWEEN '$inputdate' AND '$inputdate2'");
+        return $query->result_array();
+    }
+
+    public function fetch_report_employed_r()
+    {
+        $inputdate=$_POST['from'];
+        $inputdate2=$_POST['to'];
+
+        // var_dump($inputdate);
+        // var_dump($inputdate2);
+        //$query = $this->db->get('js_emp_details');
+        $query = $this->db->query("SELECT js_emp_details.empID as empID,
+        CONCAT(js_emp_details.lname,',',' ',js_emp_details.fname,' ',js_emp_details.mname) as fname,
+        tbl_empstatus_detail.emp_status_type_name as emp_status, tbl_establishment_details.establishment_name as establishment,
+        tbl_empstatus_detail.wage_employment as wage, tbl_empstatus_detail.date_employed as date_employed
+        FROM js_emp_details JOIN tbl_empstatus_detail
+        ON js_emp_details.empID = tbl_empstatus_detail.empID
+        JOIN tbl_establishment_details ON tbl_empstatus_detail.establishment_id = tbl_establishment_details.establishment_id
+        WHERE tbl_empstatus_detail.emp_status_type_name = 'Employed (Walk-in)' AND tbl_empstatus_detail.date_employed BETWEEN '$inputdate' AND '$inputdate2'");
         return $query->result_array();
     }
 }

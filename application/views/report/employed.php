@@ -1,7 +1,6 @@
 
 <div style="text-align:center">
-    <h2>LIST OF REGISTERED JOBSEEKERS</h2>
-    <h3>March 2020</h3>
+    <h2>LIST OF EMPLOYEES</h2>
 
     <br>
 
@@ -21,42 +20,21 @@
                     <p style="color:#FFFFFF" ;>FULL NAME</p>
                 </th>
                 <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>ADDRESS</p>
+                    <p style="color:#FFFFFF" ;>EMPLOYMENT STATUS</p>
                 </th>
-                <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>SKILLS</p>
-                </th>
-                <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>WAGE EMPLOYMENT</p>
-                </th>
-                <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>GENDER</p>
-                </th>
-                <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>CIVIL STATUS</p>
-                </th>
-                <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>AGE</p>
-                    
-                </th>
-                <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>EDUCATION</p>
-                    
-                </th>
-                <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>WORK EXPERIENCE</p>
-                    
-                </th>
-                <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>DATE REGISTERED</p>
-                    
+
+                    <p style="color:#FFFFFF" ;>EMPLOYMENT STATUS</p>
                 </th>
                 <th bgcolor="#015668">
                     <p style="color:#FFFFFF" ;>REGISTERED AT(Name of Establishment)</p>
                     
                 </th>
                 <th bgcolor="#015668">
-                    <p style="color:#FFFFFF" ;>ESTABLISHMENT ADDRESS</p>
+                    <p style="color:#FFFFFF" ;>WAGE</p>
+                    
+                </th>
+                <th bgcolor="#015668">
+                    <p style="color:#FFFFFF" ;>DATE EMPLOYED</p>
                     
                 </th>
             </tr>
@@ -68,43 +46,21 @@
                 <tr>
 
                     <td align="center">
-                    <h5><?= $row['name']; ?></h5>  
+                    <h5><?= $row['fname']; ?></h5>  
                     </td>
                     <td align="center">
-                    <h5><?= $row['address']; ?></h5>    
+                    <h5><?= $row['emp_status']; ?></h5>    
                     </td>
                     <td align="center">
-                    <h5><?= $row['skills']; ?></h5>   
+                    <h5><?= $row['establishment']; ?></h5>   
                     </td>
                     <td align="center">
-                    <h5><?= $row['wage_employment']; ?></h5>   
-                    </td>
-                    <td align="center">
-                    <h5><?= $row['gender']; ?></h5>   
-                    </td>
-                    <td align="center">
-                    <h5><?= $row['civil_status']; ?></h5>   
-                    </td>
-                    <td align="center">
-                    <h5><?= $row['age']; ?></h5>   
-                    </td>
-                    <td align="center">
-                    <h5><?= $row['education']; ?></h5>   
-                    </td>
-                    <td align="center">
-                    <h5><?= $row['work_experience']; ?></h5>  
+                    <h5><?= $row['wage']; ?></h5>   
                     </td>
                     <td align="center">
                     <h5><?= $row['date_employed']; ?></h5>   
                     </td>
-                    <td align="center">
-                    <h5><?= $row['establishment_name']; ?></h5>   
-                    </td>
-                    <td align="center">
-                    <h5><?= $row['establishment_address']; ?></h5>
-                    </td>
                     <?php
-
                     } ?>
 
         </tbody>

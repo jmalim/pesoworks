@@ -161,7 +161,25 @@ class Send_data_controller extends CI_Controller
     }
   }
 
-  function add_employer(){
+  public function view_employer($employerID){
+
+    $id = $employerID;
+
+   
+    
+    // load registration view form
+    
+    $test =  $this->Fetchdata_model->fetchdata_employerbyId($id);
+    $data['employer'] = (object) $test;
+          $this->load->view('templates/headerDB');
+          $this->load->view("pages/update_employer",$data);
+          $this->load->view('templates/footerDB');
+
+    var_dump($data['employer']);
+
+  }
+
+  public function add_employer(){
     $data['address'] = $this->Fetchdata_model->fetchdata_address();
     $this->load->view('templates/headerDB');
     $this->load->view("pages/add_employer", $data);

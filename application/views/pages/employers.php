@@ -50,9 +50,8 @@
                     <h5></h5>
                 </td>
                 <td align="center">
-                <input type="button" value="VIEW" class="buttonedit" name="edit" />
-    <!-- onclick="window.location.href='<?php echo base_url() ?>send_data_controller/view_jobseeker/<?= $row['empID'];?>'" /> -->
-                    
+                <input type="button" value="VIEW" class="buttonedit" name="edit"
+                        onclick="window.location.href='<?php echo base_url() ?>send_data_controller/view_employer/<?= $row['establishment_id'];?>'" />
                 </td>
                 
 

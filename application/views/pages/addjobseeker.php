@@ -122,9 +122,10 @@
     <label> Employment Status </label>
     <select id="empstatus" name="empstatus">
     <option value="" disabled selected>Employment Status</option>
-      <option value="wage_employed">Wage-Employed</option>
-      <option value="self_employed">Self-Employed</option>
-      <option value="unemployed">Unemployed</option>
+      <option value="Employed (Referred)">Employed (Referred)</option>
+      <option value="Employed (Walk-in)">Employed (Walk-in)</option>
+
+      <!-- <option value="Unemployed">Unemployed</option> -->
     </select>
     <label> Company Name </label>
     <select id="cname" name="companyname">
@@ -151,6 +152,6 @@
 
 <script>
 function success() {
-  window.location.href='<?php echo base_url() ?>pages/view_jobposting';
+  window.location.href='<?php echo base_url() ?>pages/admindashboard';
 }
 </script>

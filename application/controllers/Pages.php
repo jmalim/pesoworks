@@ -57,13 +57,6 @@
 
     }
 
-    public function pickdate_p(){
-
-        $this->load->view('templates/headerDB');
-          $this->load->view("pages/pickdate_placed");
-          $this->load->view('templates/footerDB');
-
-    }
     public function pickdate_r(){
 
         $this->load->view('templates/headerDB');
@@ -74,25 +67,22 @@
 
     public function report_employed(){
 
+
       $data['report_employed_data'] = $this->Fetchdata_model->fetch_report_employed();
 
       $this->load->view('templates/headerDB');
       $this->load->view("report/employed", $data);
       $this->load->view('templates/footerDB');
+      
   }
-    
-    public function placed(){
 
-        $this->load->view('templates/headerDB');
-          $this->load->view("report/placed");
-          $this->load->view('templates/footerDB');
+    public function report_referred(){
 
-    }
-    public function referred(){
+      $data['report_employed_data'] = $this->Fetchdata_model->fetch_report_employed_r();
 
-        $this->load->view('templates/headerDB');
-          $this->load->view("report/referred");
-          $this->load->view('templates/footerDB');
+      $this->load->view('templates/headerDB');
+      $this->load->view("report/employed", $data);
+      $this->load->view('templates/footerDB');
 
     }
     public function postajob(){

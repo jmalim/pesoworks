@@ -21,7 +21,45 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    // new Date("2017-01-26");
+    // var dateFormat = "Y-m-d",
+    var dateFormat = "Y-m-d",
+      from = $( "#from" )
+        .datepicker({
+          dateFormat: 'yy-mm-dd',
+          changeMonth: true,
+          numberOfMonths: 1
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#to" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        numberOfMonths: 1
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+  </script>
 
 
 
@@ -144,9 +182,8 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="<?php echo base_url() ?>pages/pickdate_e">Employed</a>
-            <a href="<?php echo base_url() ?>pages/pickdate_p">Referred</a>
-            <a href="<?php echo base_url() ?>pages/pickdate_r">Walk-in</a>
+            <a href="<?php echo base_url() ?>pages/pickdate_e">Employed(Referred)</a>
+            <a href="<?php echo base_url() ?>pages/pickdate_r">Referred(Walk-in)</a>
 
         </div>
 
