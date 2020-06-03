@@ -1,3 +1,10 @@
+<?php
+    // die($this->session->userdata("logged_in"));
+    if(empty($this->session->userdata('logged_in'))){
+        redirect('authentication');
+    }
+
+?>
 <!DOCTYPE html>
 <html>
 

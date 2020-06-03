@@ -58,3 +58,5 @@ $route['send_data_controller/view_employer/(:num)'] = 'send_data_controller/view
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['authentication'] = 'pages/authentication';
+

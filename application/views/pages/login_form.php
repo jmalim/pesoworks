@@ -1,19 +1,18 @@
 <?php echo validation_errors(); ?>
 
-<?php echo form_open(''); ?>
-
 <div class="login-page">
   <div class="form">
-  <div><img src="<?php echo base_url();?>/dist/img/peso.png"></div>
+  	<form method="POST" action="<?php echo base_url() ?>pages/login">
+  <div><img src="<?php echo base_url();?>dist/img/peso.png"></div>
   <div></div>
   <br>
 
-<input type="text" placeholder="Email" name="email" size="50" />
+<input type="email" placeholder="Email" name="email" size="50" />
 
 <input type="password" placeholder="Password" name="password" size="50" />
 
 
-<div><input type="submit" value="Log in" /></div>
+<div><button type="submit">Log in</button></div>
 
 </form>
 </div>

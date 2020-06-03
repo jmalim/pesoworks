@@ -8,19 +8,14 @@ class Pages extends CI_Controller
   //functions  
   public function index()
   {
-    $this->load->helper(array('form', 'url'));
+    $this->authentication();
+  }
 
-    $this->load->library('form_validation');
-    $this->form_validation->set_rules('password', 'Password', 'required');
-    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-
-    if ($this->form_validation->run() == FALSE) {
+  public function authentication()
+  {
       $this->load->view('templates/header');
       $this->load->view("pages/login_form");
-      $this->load->view('templates/footer');
-    } else {
-      redirect(base_url('pages/admindashboard'));
-    }
+      $this->load->view('templates/footer');  
   }
 
   public function admindashboard()
@@ -101,5 +96,41 @@ class Pages extends CI_Controller
     $this->load->view('templates/headerDB');
     $this->load->view("report/stat");
     $this->load->view('templates/footerDB');
+  }
+  public function login(){
+      $this->load->model("Login_database");
+      $this->load->model("Fetchdata_model");
+
+      $this->form_validation->set_rules('email', 'Email', 'trim|required');
+      $this->form_validation->set_rules('password', 'Password', 'trim|required');
+      if ($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('error_msg', 'Invalid Username or Password. Please try again.');
+          return redirect('authentication');
+      }
+      $credentials = array(
+          'email' => $this->input->post('email'),
+          'password' => $this->input->post('password')
+      );
+
+      $record = $this->Login_database->checkUser($credentials);
+      if(count($record)==0){
+          $this->session->set_flashdata('error_msg', "Invalid Username or Password. Please try again.");
+          return redirect('authentication');
+      }
+      else{
+        $sessionData = [
+          "user_id" => $record[0]->empID,
+          "email" => $record[0]->email
+        ];
+        $this->session->set_userdata('logged_in',$sessionData);
+        return redirect('pages/admindashboard');            
+      }        
+
+  }
+
+  public function logout(){
+      $this->session->unset_userdata('logged_in');
+      session_destroy();
+      redirect('authentication');
   }
 }
