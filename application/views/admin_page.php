@@ -1,3 +1,4 @@
+<p><?php echo anchor('form', 'Try it again!'); ?></p>
 
     <div style="text-align:center"><h2>LIST OF REGISTERED JOBSEEKERS</h2></div>
     <div><span style="display:flex; justify-content:flex-end; width:100%; padding: 0px;">

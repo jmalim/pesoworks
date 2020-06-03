@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2020 at 06:23 AM
+-- Generation Time: Jun 03, 2020 at 03:21 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -29,6 +29,50 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `postjob` (IN `jobtitle` VARCHAR(255), IN `jobdetails` VARCHAR(255), IN `establishment_id` INT(11), IN `jobtype` VARCHAR(255), IN `rate` DOUBLE(6,2), IN `job_location` VARCHAR(255), IN `postingdate` DATE, IN `posting_status` VARCHAR(255))  BEGIN 
 	INSERT INTO tbl_job VALUES (NULL,jobtitle,jobdetails);
     INSERT INTO tbl_postingdetails VALUES (NULL,@@IDENTITY,establishment_id,jobtype,rate,job_location,postingdate,posting_status);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `post_employer` (IN `establishment_name` VARCHAR(255), IN `establishment_abbr` VARCHAR(255), IN `establishment_tin` VARCHAR(255), IN `establishment_type` VARCHAR(255), IN `workforce` VARCHAR(255), IN `person_in_charge` VARCHAR(255), IN `position` VARCHAR(255), IN `contact` VARCHAR(255), IN `addressID` INT(11), IN `regdate` DATE)  NO SQL
+BEGIN
+INSERT INTO tbl_establishment_details
+VALUES (NULL, establishment_name,establishment_abbr,establishment_tin,establishment_type,workforce,
+        person_in_charge,position,contact,addressID,regdate);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `post_jobseeker` (IN `fname` VARCHAR(255), IN `lname` VARCHAR(255), IN `mname` VARCHAR(255), IN `suffix` VARCHAR(255), IN `gender` VARCHAR(255), IN `location` INT(11), IN `civilstatus` VARCHAR(255), IN `tin` VARCHAR(255), IN `gsis` VARCHAR(255), IN `pagibig` VARCHAR(255), IN `phno` VARCHAR(255), IN `height` VARCHAR(255), IN `landline` VARCHAR(255), IN `cellphone` VARCHAR(255), IN `disability` VARCHAR(255), IN `bdate` DATE, IN `bplace` VARCHAR(255), IN `religion` VARCHAR(255), IN `dateposted` DATE, IN `emp_status` VARCHAR(255), IN `establishment_id` INT(11), IN `wage` DOUBLE(6,2), IN `date_emp` DATE)  NO SQL
+BEGIN 
+	INSERT INTO js_emp_details
+    VALUES
+    (NULL,fname,lname,mname,suffix,gender,location,civilstatus,tin,gsis,pagibig,
+     phno,height,landline,cellphone,disability,bdate,bplace,religion,dateposted);
+    INSERT INTO tbl_empstatus_detail
+    VALUES(NULL,@@IDENTITY,emp_status,establishment_id,wage,date_emp);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_empstatus` (IN `empID` INT(11), IN `empstatus` VARCHAR(255))  NO SQL
+BEGIN
+	
+UPDATE tbl_empstatus_detail
+SET
+tbl_empstatus_detail.emp_status_type_name = empstatus
+WHERE tbl_empstatus_detail.empID = empID;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_tbl_job` (IN `jobid` INT(11), IN `jobtitle` VARCHAR(255), IN `jobdetails` VARCHAR(255), IN `postingstatus` VARCHAR(255), IN `jobtype` VARCHAR(255), IN `rate` DOUBLE(6,2))  NO SQL
+BEGIN
+	
+UPDATE tbl_job
+SET
+tbl_job.jobtitle = jobtitle,
+tbl_job.jobdetails = jobdetails
+WHERE tbl_job.jobID = jobid;
+
+UPDATE tbl_postingdetails
+SET
+tbl_postingdetails.jobtype = jobtype,
+tbl_postingdetails.rate = rate,
+tbl_postingdetails.posting_status = postingstatus
+WHERE tbl_postingdetails.jobID = jobid;
 END$$
 
 DELIMITER ;
@@ -69,7 +113,30 @@ CREATE TABLE `js_emp_details` (
 INSERT INTO `js_emp_details` (`empID`, `fname`, `lname`, `mname`, `suffix`, `gender`, `addressID`, `civilstatus`, `tin`, `gsis`, `pagibig`, `phno`, `height`, `landline`, `cellphone`, `disability`, `bdate`, `placeofbirth`, `religion`, `regdate`) VALUES
 (2020001, 'Jeanette', 'Alim', 'M.', 'N/A', 'Female', 2, 'Single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '09664681864', 'N/A', '1990-04-28', 'CDO', 'RC', '2020-03-01'),
 (2020002, 'Analita', 'Autida', 'O.', 'N/A', 'Female', 4, 'Married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '09123245869', 'N/A', '1997-10-11', 'CDO', 'Born Again', '2020-03-02'),
-(2020003, 'May Ann', 'Labitad', 'Y.', 'N/A', 'Female', 6, 'Married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '1992-05-08', 'CDO', 'RC', '2020-03-14');
+(2020003, 'May Ann', 'Labitad', 'Y.', 'N/A', 'Female', 6, 'Married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '1992-05-08', 'CDO', 'RC', '2020-03-14'),
+(2020015, 'Maria Fe', 'Salmorin', 'D.', 'N/A', 'male', 16, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'eyes', '1990-07-25', 'CDO', 'Mormons', '2020-05-23'),
+(2020016, 'Czarina', 'Cagulada', 'L.', 'N/A', 'female', 2, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1990-08-27', 'Camiguin', 'RC', '2020-05-23'),
+(2020017, 'therese', 'nagac', 'balsamo', 'Jr.', 'Female', 5, 'Single', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
+(2020018, 'Jell Mae', 'Alim', 'Mabao', 'N/A', 'female', 6, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1990-05-19', 'NAAWAN, MISAMIS ORIENTAL', 'Roman Catholic', '2020-05-23'),
+(2020019, 'merry grace', 'lacuarin', 'B.', 'n/a', 'female', 2, 'single', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
+(2020020, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'test', 'test', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020021, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020022, 'test', 'test', 'test', 'test', 'test', 6, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020023, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020024, 'test', 'test', 'test', 'test', 'female', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020025, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020026, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020027, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020028, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020029, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020030, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020031, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020032, 'Jessica', 'Soho', 'S', 'N/a', 'Female', 0, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020033, 'Jessica', 'Soho', 'S', 'N/a', 'Female', 0, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020034, 'Jessica', 'Soho', 'S', 'N/a', 'female', 3, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '0966468184', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
+(2020036, 'test', 'test', 'test', 'test', 'test', 12, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020037, 'Lorener', 'Paguia', 'C.', 'N/A', 'female', 7, 'married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1989-12-29', 'OPOL, MIS. OR', 'Roman Catholic', '2020-05-23'),
+(2020038, 'Ashley Loise', 'Batulan', 'Fernandez', 'N/A', 'female', 16, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '1992-04-11', 'Cagayan de Oro City', 'Roman Catholic', '2020-05-31');
 
 -- --------------------------------------------------------
 
@@ -152,7 +219,20 @@ INSERT INTO `tbl_employeeskills` (`employeeskill_id`, `skill_id`, `empID`) VALUE
 (104, 1005, 2020002),
 (105, 1006, 2020003),
 (106, 1007, 2020003),
-(107, 1008, 2020002);
+(107, 1008, 2020002),
+(108, 1008, 2020017),
+(109, 1002, 2020018),
+(110, 1007, 2020019),
+(111, 1008, 2020020),
+(112, 1008, 2020021),
+(113, 1007, 2020022),
+(114, 2020023, 1008),
+(115, 1007, 2020024),
+(116, 1008, 2020025),
+(117, 1008, 2020026),
+(118, 1008, 2020027),
+(119, 1008, 2020028),
+(120, 1007, 2020029);
 
 -- --------------------------------------------------------
 
@@ -174,9 +254,13 @@ CREATE TABLE `tbl_empstatus_detail` (
 --
 
 INSERT INTO `tbl_empstatus_detail` (`empstatus_detail_id`, `empID`, `emp_status_type_name`, `establishment_id`, `wage_employment`, `date_employed`) VALUES
-(3001, 2020001, 'Wage-employed', 1, 500.00, '2020-03-13'),
-(3003, 2020003, 'Wage-employed', 2, 365.00, '2020-03-15'),
-(3004, 2020002, 'Self-employed', 2, 365.00, '2020-03-13');
+(3001, 2020001, 'Employed (Walk-in)', 2, 500.00, '2020-03-13'),
+(3003, 2020003, 'Employed (Walk-in)', 2, 365.00, '2020-03-15'),
+(3005, 2020019, 'Employed (Referred)', 5, 150.00, '2020-01-01'),
+(3010, 2020034, 'Employed (Walk-in)', 5, 150.00, '2020-05-23'),
+(3012, 2020036, 'Employed (Referred)', 5, 150.00, '2020-05-23'),
+(3013, 2020037, 'Employed (Referred)', 21, 450.00, '2020-02-01'),
+(3014, 2020038, 'Employed (Walk-in)', 18, 350.00, '2020-05-31');
 
 -- --------------------------------------------------------
 
@@ -225,7 +309,8 @@ INSERT INTO `tbl_establishment_details` (`establishment_id`, `establishment_name
 (20, 'Producers Savings Bank Corporation', 'PSBC', 'N/A', 'Private', 'Large', 'N/A', 'N/A', 'N/A', 9, '2020-03-25'),
 (21, 'Tanduay Distillers, Inc.', 'TDI', 'N/A', 'Private', 'Large', 'N/A', 'N/A', 'N/A', 10, '2020-03-25'),
 (22, 'Universal Robina Corporation', 'URC', 'N/A', 'Private', 'Large', 'N/A', 'N/A', 'N/A', 9, '2020-03-25'),
-(23, 'W.L. Food Products', 'WL', 'N/A', 'Private', 'Large', 'N/A', 'N/A', 'N/A', 14, '2020-03-25');
+(23, 'W.L. Food Products', 'WL', 'N/A', 'Private', 'Large', 'N/A', 'N/A', 'N/A', 14, '2020-03-25'),
+(34, 'Cardmasters CDO', 'CM', '123-123-123', 'Public', 'Small (10-99)', 'Anie Booc', 'Hr Manager', '09123456789', 16, '2020-05-25');
 
 -- --------------------------------------------------------
 
@@ -244,19 +329,23 @@ CREATE TABLE `tbl_job` (
 --
 
 INSERT INTO `tbl_job` (`jobID`, `jobtitle`, `jobdetails`) VALUES
-(1001, 'Machine Operator', 'Machine Operators mainly work with heavy machinery. They assist with the installation of their equipment and help maintain it by performing periodic tests and repairs. ... They install their machines, operate them to aid in plant processes, and perform ro'),
+(1001, 'Machine Operator', 'Machine Operators mainly work with heavy machinery. They assist with the installation of their equipment and help maintain it by performing periodic tests and repairs.'),
 (1002, 'Quality Inspector', 'A Quality Inspector monitors the quality of incoming and outgoing products or materials for a company. Also known as a Quality Control Inspector, they are tasked with conducting tests, analyzing measurements, and overseeing production processes. They work'),
 (1006, 'Laser Machine Operator', 'Must be able to set up or operate machines to cut, saw, or do 3D image engraving'),
 (1012, 'Grocery Clerk ', 'Demonstrate excellent commercial awareness, courtesy, and organizational skills. Duties may include cleaning the store, restocking shelves, and ordering stock.'),
-(1013, 'Test', 'Test'),
-(1014, 'Greza Chicks', 'kanang lami'),
-(1015, '', ''),
-(1016, '', ''),
-(1017, '', ''),
+(1013, 'Machine Operator', 'Knows how to print tarps'),
+(1014, 'Jusko', 'Help'),
 (1018, 'Test', 'Test'),
-(1019, '', ''),
 (1020, 'Lorem', 'Lorem Ipsum'),
-(1021, 'Driver', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.');
+(1021, 'Driver', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.'),
+(1023, 'Repacker', 'When an unknown printer took a galley of type and scrambled it to make a type specimen book'),
+(1024, 'Cutter', 'Charcharchar'),
+(1025, 'Steel Cutter', 'Lorem Ipsum'),
+(1026, 'Accounting Staff', 'Lorem Ipsum'),
+(1027, 'Accounting Staff', 'Lorem Ipsum'),
+(1028, 'Test', 'Test'),
+(1029, 'test2', 'test123'),
+(1030, 'aaaaa', 'aaaa');
 
 -- --------------------------------------------------------
 
@@ -303,13 +392,21 @@ CREATE TABLE `tbl_postingdetails` (
 --
 
 INSERT INTO `tbl_postingdetails` (`jobpostingID`, `jobID`, `establishment_id`, `jobtype`, `rate`, `job_location`, `postingdate`, `posting_status`) VALUES
-(1, 1001, 1, 'Full-time', 365.00, 'Amoros, El Salvador City', '2020-03-02', 'OPEN'),
+(1, 1001, 1, 'Contractual', 365.00, 'Amoros, El Salvador City', '2020-03-02', 'OPEN'),
 (2, 1002, 2, 'Contractual', 350.00, 'Taytay, El Salvador City', '2020-03-09', 'CLOSED'),
 (4, 1012, 3, 'Full-Time', 365.00, 'Bulua, CDO', '2020-03-25', 'OPEN'),
 (5, 1001, 3, 'Part-time', 750.00, 'Cugman, CDO', '2020-03-25', 'OPEN'),
 (11, 1018, 10, 'Full-Time', 350.00, 'Taytay, El Salvador City Misamis Oriental', '2020-03-27', 'CLOSED'),
 (13, 1020, 7, 'Part-time', 399.00, 'Sinaloc, El Salvador City Misamis Oriental', '2020-03-28', 'OPEN'),
-(14, 1021, 3, 'Contractual', 550.00, 'Sambulawan, El Salvador City Misamis Oriental', '2020-03-28', 'OPEN');
+(14, 1021, 3, 'Contractual', 550.00, 'Sambulawan, El Salvador City Misamis Oriental', '2020-03-28', 'OPEN'),
+(16, 1023, 11, 'Contractual', 350.00, 'Bolisong, El Salvador City Misamis Oriental', '2020-05-19', 'OPEN'),
+(17, 1024, 15, 'Contractual', 455.00, 'Poblacion, El Salvador City Misamis Oriental', '2020-05-21', 'OPEN'),
+(18, 1025, 4, 'Part-time', 150.00, 'Taytay, El Salvador City Misamis Oriental', '2020-05-21', 'OPEN'),
+(19, 1026, 18, 'CONTRACTUAL', 150.00, 'Sinaloc, El Salvador City Misamis Oriental', '2020-05-22', 'CLOSED'),
+(20, 1027, 17, 'Part-Time', 150.00, 'Ulaliman, El Salvador City Misamis Oriental', '2020-05-22', 'OPEN'),
+(21, 1028, 5, 'Full-Time', 99.00, 'Quibonbon, El Salvador City Misamis Oriental', '2020-05-22', 'OPEN'),
+(22, 1029, 2, 'Part-Time', 75.00, 'Amoros, El Salvador City Misamis Oriental', '2020-05-22', 'OPEN'),
+(23, 1030, 1, 'Full-Time', 10.00, 'Taytay, El Salvador City Misamis Oriental', '2020-05-23', 'OPEN');
 
 -- --------------------------------------------------------
 
@@ -368,6 +465,26 @@ INSERT INTO `tbl_users` (`empID`, `email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `empID` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`empID`, `email`, `password`) VALUES
+(2020001, 'tazeetwenieyt@gmail.com', '123456'),
+(2020002, 'analita@gmail.com', '123');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `work_experience`
 --
 
@@ -393,6 +510,12 @@ INSERT INTO `work_experience` (`empID`, `company_name`, `company_address`, `posi
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `js_emp_details`
+--
+ALTER TABLE `js_emp_details`
+  ADD PRIMARY KEY (`empID`);
 
 --
 -- Indexes for table `tbl_employeeskills`
@@ -441,28 +564,34 @@ ALTER TABLE `tbl_skills`
 --
 
 --
+-- AUTO_INCREMENT for table `js_emp_details`
+--
+ALTER TABLE `js_emp_details`
+  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2020039;
+
+--
 -- AUTO_INCREMENT for table `tbl_employeeskills`
 --
 ALTER TABLE `tbl_employeeskills`
-  MODIFY `employeeskill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `employeeskill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `tbl_empstatus_detail`
 --
 ALTER TABLE `tbl_empstatus_detail`
-  MODIFY `empstatus_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3005;
+  MODIFY `empstatus_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3015;
 
 --
 -- AUTO_INCREMENT for table `tbl_establishment_details`
 --
 ALTER TABLE `tbl_establishment_details`
-  MODIFY `establishment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `establishment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tbl_job`
 --
 ALTER TABLE `tbl_job`
-  MODIFY `jobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1022;
+  MODIFY `jobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1031;
 
 --
 -- AUTO_INCREMENT for table `tbl_jobpreference`
@@ -474,7 +603,7 @@ ALTER TABLE `tbl_jobpreference`
 -- AUTO_INCREMENT for table `tbl_postingdetails`
 --
 ALTER TABLE `tbl_postingdetails`
-  MODIFY `jobpostingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `jobpostingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_skills`

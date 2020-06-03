@@ -13,11 +13,67 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages': ['table', 'map', 'corechart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(initialize);
+
+      function initialize() {
+        // The URL of the spreadsheet to source data from.
+        var query = new google.visualization.Query(
+            'https://spreadsheets.google.com/pub?key=pCQbetd-CptF0r8qmCOlZGg');
+        query.send(draw);
+      }
+
+      function draw(response) {
+        if (response.isError()) {
+          alert('Error in query');
+        }
+
+        var ticketsData = response.getDataTable();
+        var chart = new google.visualization.ColumnChart(
+            document.getElementById('chart_div'));
+        chart.draw(ticketsData, {'isStacked': true, 'legend': 'bottom',
+            'vAxis': {'title': 'Number of tickets'}});
+
+        var geoData = google.visualization.arrayToDataTable([
+          ['Lat', 'Lon', 'Name', 'Food?'],
+          [51.5072, -0.1275, 'Cinematics London', true],
+          [48.8567, 2.3508, 'Cinematics Paris', true],
+          [55.7500, 37.6167, 'Cinematics Moscow', false]]);
+
+        var geoView = new google.visualization.DataView(geoData);
+        geoView.setColumns([0, 1]);
+
+        var table =
+            new google.visualization.Table(document.getElementById('table_div'));
+        table.draw(geoData, {showRowNumber: false, width: '100%', height: '100%'});
+
+        var map =
+            new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(geoView, {showTip: true});
+
+        // Set a 'select' event listener for the table.
+        // When the table is selected, we set the selection on the map.
+        google.visualization.events.addListener(table, 'select',
+            function() {
+              map.setSelection(table.getSelection());
+            });
+
+        // Set a 'select' event listener for the map.
+        // When the map is selected, we set the selection on the table.
+        google.visualization.events.addListener(map, 'select',
+            function() {
+              table.setSelection(map.getSelection());
+            });
+      }
+    </script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-
-
-
-
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -177,13 +233,14 @@
         <a href="<?php echo base_url() ?>pages/view_jobposting">Job Posting</a>
         <a href="<?php echo base_url() ?>pages/admindashboard">Jobseekers</a>
         <a href="<?php echo base_url() ?>pages/view_employers">Employers</a>
-        <a href="<?php echo base_url() ?>pages/view_employers">Statistics</a>
+        
         <button class="dropdown-btn">Reports
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
             <a href="<?php echo base_url() ?>pages/pickdate_e">Employed(Referred)</a>
             <a href="<?php echo base_url() ?>pages/pickdate_r">Referred(Walk-in)</a>
+            <a href="<?php echo base_url() ?>pages/view_stat">Statistics</a>
 
         </div>
 

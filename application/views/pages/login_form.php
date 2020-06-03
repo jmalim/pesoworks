@@ -1,5 +1,6 @@
-<body>
+<?php echo validation_errors(); ?>
 
+<?php echo form_open(''); ?>
 
 <div class="login-page">
   <div class="form">
@@ -7,15 +8,16 @@
   <div></div>
   <br>
 
-    <form class="login-form" method="post" action="<?php echo base_url()?>pages/admindashboard">
-      <input type="text" placeholder="email" id="email"/>
-      <input type="password" placeholder="password" id="password"/>
-      <button >login</button>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
-    </form>
-  </div>
-</div>
+<input type="text" placeholder="Email" name="email" size="50" />
 
+<input type="password" placeholder="Password" name="password" size="50" />
+
+
+<div><input type="submit" value="Log in" /></div>
+
+</form>
+</div>
+</div>
 
 <!-- <p>Forgot your password? <u style="color:#f1c40f;">Click Here!</u></p> -->
   
