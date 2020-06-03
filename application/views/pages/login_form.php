@@ -1,5 +1,9 @@
-<?php echo validation_errors(); ?>
-
+<?php if($this->session->flashdata('error_msg')): ?>
+	<div class="alert alert-danger alert-dismissible">
+	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	  <?= $this->session->flashdata('error_msg') ?>
+	</div>
+<?php endif ?>
 <div class="login-page">
   <div class="form">
   	<form method="POST" action="<?php echo base_url() ?>pages/login">
