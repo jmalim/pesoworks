@@ -1,7 +1,10 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
+    // die($this->session->userdata("logged_in"));
+    if(!empty($this->session->userdata('logged_in'))){
+        redirect('pages/admindashboard');
+    }
 
+?>
 <!DOCTYPE html>
 <html>
 <head>
