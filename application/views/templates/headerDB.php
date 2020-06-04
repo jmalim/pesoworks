@@ -251,7 +251,9 @@
 
         </div>
 
-        <a href="<?php echo base_url() ?>">Logout</a>
+        <a href="<?php base_url() ?>logout">Logout</a>
+
+
     </div>
 
     <script>
