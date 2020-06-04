@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2020 at 03:21 PM
+-- Generation Time: Jun 04, 2020 at 03:38 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -460,7 +460,7 @@ CREATE TABLE `tbl_users` (
 
 INSERT INTO `tbl_users` (`empID`, `email`, `password`) VALUES
 (2020001, 'tazeetwenieyt@gmail.com', '123'),
-(2020002, 'autida@gmail.com', '123');
+(2020003, 'maylabitad@gmail.com', '123');
 
 -- --------------------------------------------------------
 
