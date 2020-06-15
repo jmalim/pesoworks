@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2020 at 03:38 AM
+-- Generation Time: Jun 15, 2020 at 03:34 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -38,11 +38,11 @@ VALUES (NULL, establishment_name,establishment_abbr,establishment_tin,establishm
         person_in_charge,position,contact,addressID,regdate);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `post_jobseeker` (IN `fname` VARCHAR(255), IN `lname` VARCHAR(255), IN `mname` VARCHAR(255), IN `suffix` VARCHAR(255), IN `gender` VARCHAR(255), IN `location` INT(11), IN `civilstatus` VARCHAR(255), IN `tin` VARCHAR(255), IN `gsis` VARCHAR(255), IN `pagibig` VARCHAR(255), IN `phno` VARCHAR(255), IN `height` VARCHAR(255), IN `landline` VARCHAR(255), IN `cellphone` VARCHAR(255), IN `disability` VARCHAR(255), IN `bdate` DATE, IN `bplace` VARCHAR(255), IN `religion` VARCHAR(255), IN `dateposted` DATE, IN `emp_status` VARCHAR(255), IN `establishment_id` INT(11), IN `wage` DOUBLE(6,2), IN `date_emp` DATE)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `post_jobseeker` (IN `image` VARCHAR(255), IN `fname` VARCHAR(255), IN `lname` VARCHAR(255), IN `mname` VARCHAR(255), IN `suffix` VARCHAR(255), IN `gender` VARCHAR(255), IN `location` INT(11), IN `civilstatus` VARCHAR(255), IN `tin` VARCHAR(255), IN `gsis` VARCHAR(255), IN `pagibig` VARCHAR(255), IN `phno` VARCHAR(255), IN `height` VARCHAR(255), IN `landline` VARCHAR(255), IN `cellphone` VARCHAR(255), IN `disability` VARCHAR(255), IN `bdate` DATE, IN `bplace` VARCHAR(255), IN `religion` VARCHAR(255), IN `dateposted` DATE, IN `emp_status` VARCHAR(255), IN `establishment_id` INT(11), IN `wage` DOUBLE(6,2), IN `date_emp` DATE)  NO SQL
 BEGIN 
 	INSERT INTO js_emp_details
     VALUES
-    (NULL,fname,lname,mname,suffix,gender,location,civilstatus,tin,gsis,pagibig,
+    (NULL,image,fname,lname,mname,suffix,gender,location,civilstatus,tin,gsis,pagibig,
      phno,height,landline,cellphone,disability,bdate,bplace,religion,dateposted);
     INSERT INTO tbl_empstatus_detail
     VALUES(NULL,@@IDENTITY,emp_status,establishment_id,wage,date_emp);
@@ -85,6 +85,7 @@ DELIMITER ;
 
 CREATE TABLE `js_emp_details` (
   `empID` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `mname` varchar(255) NOT NULL,
@@ -110,33 +111,34 @@ CREATE TABLE `js_emp_details` (
 -- Dumping data for table `js_emp_details`
 --
 
-INSERT INTO `js_emp_details` (`empID`, `fname`, `lname`, `mname`, `suffix`, `gender`, `addressID`, `civilstatus`, `tin`, `gsis`, `pagibig`, `phno`, `height`, `landline`, `cellphone`, `disability`, `bdate`, `placeofbirth`, `religion`, `regdate`) VALUES
-(2020001, 'Jeanette', 'Alim', 'M.', 'N/A', 'Female', 2, 'Single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '09664681864', 'N/A', '1990-04-28', 'CDO', 'RC', '2020-03-01'),
-(2020002, 'Analita', 'Autida', 'O.', 'N/A', 'Female', 4, 'Married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '09123245869', 'N/A', '1997-10-11', 'CDO', 'Born Again', '2020-03-02'),
-(2020003, 'May Ann', 'Labitad', 'Y.', 'N/A', 'Female', 6, 'Married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '1992-05-08', 'CDO', 'RC', '2020-03-14'),
-(2020015, 'Maria Fe', 'Salmorin', 'D.', 'N/A', 'male', 16, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'eyes', '1990-07-25', 'CDO', 'Mormons', '2020-05-23'),
-(2020016, 'Czarina', 'Cagulada', 'L.', 'N/A', 'female', 2, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1990-08-27', 'Camiguin', 'RC', '2020-05-23'),
-(2020017, 'therese', 'nagac', 'balsamo', 'Jr.', 'Female', 5, 'Single', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
-(2020018, 'Jell Mae', 'Alim', 'Mabao', 'N/A', 'female', 6, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1990-05-19', 'NAAWAN, MISAMIS ORIENTAL', 'Roman Catholic', '2020-05-23'),
-(2020019, 'merry grace', 'lacuarin', 'B.', 'n/a', 'female', 2, 'single', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
-(2020020, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'test', 'test', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020021, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020022, 'test', 'test', 'test', 'test', 'test', 6, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020023, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020024, 'test', 'test', 'test', 'test', 'female', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020025, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020026, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020027, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020028, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020029, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020030, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020031, 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020032, 'Jessica', 'Soho', 'S', 'N/a', 'Female', 0, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020033, 'Jessica', 'Soho', 'S', 'N/a', 'Female', 0, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020034, 'Jessica', 'Soho', 'S', 'N/a', 'female', 3, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '0966468184', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
-(2020036, 'test', 'test', 'test', 'test', 'test', 12, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
-(2020037, 'Lorener', 'Paguia', 'C.', 'N/A', 'female', 7, 'married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1989-12-29', 'OPOL, MIS. OR', 'Roman Catholic', '2020-05-23'),
-(2020038, 'Ashley Loise', 'Batulan', 'Fernandez', 'N/A', 'female', 16, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '1992-04-11', 'Cagayan de Oro City', 'Roman Catholic', '2020-05-31');
+INSERT INTO `js_emp_details` (`empID`, `image`, `fname`, `lname`, `mname`, `suffix`, `gender`, `addressID`, `civilstatus`, `tin`, `gsis`, `pagibig`, `phno`, `height`, `landline`, `cellphone`, `disability`, `bdate`, `placeofbirth`, `religion`, `regdate`) VALUES
+(2020001, '', 'Jeanette', 'Alim', 'M.', 'N/A', 'Female', 2, 'Single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '09664681864', 'N/A', '1990-04-28', 'CDO', 'RC', '2020-03-01'),
+(2020002, '', 'Analita', 'Autida', 'O.', 'N/A', 'Female', 4, 'Married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '09123245869', 'N/A', '1997-10-11', 'CDO', 'Born Again', '2020-03-02'),
+(2020003, '', 'May Ann', 'Labitad', 'Y.', 'N/A', 'Female', 6, 'Married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '1992-05-08', 'CDO', 'RC', '2020-03-14'),
+(2020015, '', 'Maria Fe', 'Salmorin', 'D.', 'N/A', 'male', 16, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'eyes', '1990-07-25', 'CDO', 'Mormons', '2020-05-23'),
+(2020016, '', 'Czarina', 'Cagulada', 'L.', 'N/A', 'female', 2, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1990-08-27', 'Camiguin', 'RC', '2020-05-23'),
+(2020017, '', 'therese', 'nagac', 'balsamo', 'Jr.', 'Female', 5, 'Single', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
+(2020018, '', 'Jell Mae', 'Alim', 'Mabao', 'N/A', 'female', 6, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1990-05-19', 'NAAWAN, MISAMIS ORIENTAL', 'Roman Catholic', '2020-05-23'),
+(2020019, '', 'merry grace', 'lacuarin', 'B.', 'n/a', 'female', 2, 'single', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
+(2020020, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'test', 'test', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020021, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020022, '', 'test', 'test', 'test', 'test', 'test', 6, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020023, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020024, '', 'test', 'test', 'test', 'test', 'female', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020025, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020026, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020027, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020028, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020029, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020030, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020031, '', 'test', 'test', 'test', 'test', 'test', 5, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', 'n/a1', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020032, '', 'Jessica', 'Soho', 'S', 'N/a', 'Female', 0, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020033, '', 'Jessica', 'Soho', 'S', 'N/a', 'Female', 0, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020034, '', 'Jessica', 'Soho', 'S', 'N/a', 'female', 3, 'Married', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', 'n/a', '0966468184', 'n/a', '1990-10-10', 'cdo', 'RC', '2020-05-23'),
+(2020036, '', 'test', 'test', 'test', 'test', 'test', 12, 'test', 'n/a7', 'n/a6', 'n/a5', 'n/a4', 'n/a3', 'n/a2', '0966468184', 'n/a', '1990-10-10', 'test', 'RC', '2020-05-23'),
+(2020037, '', 'Lorener', 'Paguia', 'C.', 'N/A', 'female', 7, 'married', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1989-12-29', 'OPOL, MIS. OR', 'Roman Catholic', '2020-05-23'),
+(2020038, '', 'Ashley Loise', 'Batulan', 'Fernandez', 'N/A', 'female', 16, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '1992-04-11', 'Cagayan de Oro City', 'Roman Catholic', '2020-05-31'),
+(2020039, 'anet.JPG', 'Jean', 'Mila', 'M.', 'N/A', 'female', 2, 'single', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'none', '1990-04-28', 'CDO', 'RC', '2020-06-13');
 
 -- --------------------------------------------------------
 
@@ -260,7 +262,8 @@ INSERT INTO `tbl_empstatus_detail` (`empstatus_detail_id`, `empID`, `emp_status_
 (3010, 2020034, 'Employed (Walk-in)', 5, 150.00, '2020-05-23'),
 (3012, 2020036, 'Employed (Referred)', 5, 150.00, '2020-05-23'),
 (3013, 2020037, 'Employed (Referred)', 21, 450.00, '2020-02-01'),
-(3014, 2020038, 'Employed (Walk-in)', 18, 350.00, '2020-05-31');
+(3014, 2020038, 'Employed (Walk-in)', 18, 350.00, '2020-05-31'),
+(3015, 2020039, 'Employed (Walk-in)', 1, 350.00, '2020-06-13');
 
 -- --------------------------------------------------------
 
@@ -321,7 +324,7 @@ INSERT INTO `tbl_establishment_details` (`establishment_id`, `establishment_name
 CREATE TABLE `tbl_job` (
   `jobID` int(11) NOT NULL,
   `jobtitle` varchar(255) NOT NULL,
-  `jobdetails` varchar(255) NOT NULL
+  `jobdetails` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -567,7 +570,7 @@ ALTER TABLE `tbl_skills`
 -- AUTO_INCREMENT for table `js_emp_details`
 --
 ALTER TABLE `js_emp_details`
-  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2020039;
+  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2020040;
 
 --
 -- AUTO_INCREMENT for table `tbl_employeeskills`
@@ -579,7 +582,7 @@ ALTER TABLE `tbl_employeeskills`
 -- AUTO_INCREMENT for table `tbl_empstatus_detail`
 --
 ALTER TABLE `tbl_empstatus_detail`
-  MODIFY `empstatus_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3015;
+  MODIFY `empstatus_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3016;
 
 --
 -- AUTO_INCREMENT for table `tbl_establishment_details`

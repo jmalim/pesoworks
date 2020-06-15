@@ -25,15 +25,16 @@ class Senddata_model extends CI_Model
 	$this->db->query($query);
     }
 
-    function post_employee($fname,$lname,$mname,$suffix,$gender,$location,
+    function post_employee($image,$fname,$lname,$mname,$suffix,$gender,$location,
       $civilstatus,$tin,$gsis,$pagibig,$phno,$height,$landline,$cellphone,
       $disability,$bdate,$bplace,$religion,$dateposted,$empstatus,$companyname,$rate,$empdate)
       {
-        $query="call post_jobseeker('$fname','$lname','$mname','$suffix',
+        $query="call post_jobseeker('$image','$fname','$lname','$mname','$suffix',
         '$gender','$location','$civilstatus','$tin','$gsis','$pagibig','$phno','$height','$landline','$cellphone',
         '$disability','$bdate','$bplace','$religion','$dateposted','$empstatus','$companyname','$rate','$empdate')";
         $this->db->query($query);
 
       }
+      
 }
 

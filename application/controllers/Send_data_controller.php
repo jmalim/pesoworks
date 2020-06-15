@@ -31,6 +31,7 @@ class Send_data_controller extends CI_Controller
 
     //Check submit button 
     if ($this->input->post('post')) {
+      
       //get form's data and store in local varable
       $establishment_id = $this->input->post('companyname');
       $location = $this->input->post('location');
@@ -67,6 +68,8 @@ class Send_data_controller extends CI_Controller
     if ($this->input->post('post')) {
       //get form's data and store in local varable
       $dateposted = $this->input->post('date');
+      $image = $this->input->post('image');
+      // $image = $_FILES['image']['name'];
       $fname = $this->input->post('fname');
       $lname = $this->input->post('lname');
       $mname = $this->input->post('mname');
@@ -94,7 +97,7 @@ class Send_data_controller extends CI_Controller
 
 
       //call saverecords method of Hello_Model and pass variables as parameter
-      $this->Senddata_model->post_employee($fname,$lname,$mname,$suffix,$gender,$location,
+      $this->Senddata_model->post_employee($image,$fname,$lname,$mname,$suffix,$gender,$location,
       $civilstatus,$tin,$gsis,$pagibig,$phno,$height,$landline,$cellphone,
       $disability,$bdate,$bplace,$religion,$dateposted,$empstatus,$companyname,$rate,$empdate);
       redirect(base_url('pages/admindashboard'));

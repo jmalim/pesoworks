@@ -63,7 +63,9 @@
   <form method="post">
   <?php foreach ($jobseeker as $key) { ?>
     <label> Date Employed </label>
+
     <input type="text" id="date" name="empdate" value="<?php echo $key['dateposted'] ?>" disabled readonly>
+    <input type="file" name="image">
     <label> Full Name </label>
     <input type="text" id="fname" name="fname" value="<?php echo $key['fname'] ?>" disabled readonly>
     <label> Employment Status </label>

@@ -60,9 +60,10 @@
 
 
 <div class="a">
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     <input type="text" id="date" name="date" value="<?php
             echo date("Y-m-d"); ?>" readonly>
+            <input type="file" name="image">
     <label> First Name </label>
     <input type="text" id="fname" name="fname" placeholder="First Name">
         <label> Last Name </label>
